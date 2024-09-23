@@ -17,12 +17,12 @@ export class HomePage {
     // Inisialisasi peta dengan tampilan default
     this.map = L.map('mapId').setView([-7.7701778, 110.377862], 15);
 
-    // Base layers
+    // Base layer OpenStreetMap
     const openStreetMap = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     });
 
-    // Gunakan tile layer dari layanan pihak ketiga untuk Google Maps
+    // Base layer Google Streets
     const googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
       maxZoom: 20,
       subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
@@ -30,11 +30,22 @@ export class HomePage {
       detectRetina: true
     });
 
+    // Base layer Google Satellite
     const googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
       maxZoom: 20,
       subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
       attribution: 'Satellite data © Google',
       detectRetina: true
+    });
+
+    // Base layer CartoDB Positron
+    const cartoDB = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://carto.com/">CARTO</a>'
+    });
+
+    // Base layer Stamen Toner
+    const stamenToner = L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://stamen.com/">Stamen Design</a>'
     });
 
     // Tambahkan OpenStreetMap sebagai layer default
@@ -44,7 +55,9 @@ export class HomePage {
     L.control.layers({
       'OpenStreetMap': openStreetMap,
       'Google Streets': googleStreets,
-      'Google Satellite': googleSat
+      'Google Satellite': googleSat,
+      'CartoDB Positron': cartoDB,
+      'Stamen Toner': stamenToner
     }).addTo(this.map);
 
     // Buat ikon kustom menggunakan gambar dari URL
